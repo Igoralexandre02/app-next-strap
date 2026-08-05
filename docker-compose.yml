@@ -1,0 +1,17 @@
+# Use postgres/example user/password credentials
+
+services:
+
+  app-next-strap:
+    container_name: app-next-strap
+    image: postgres
+    restart: always
+    volumes:
+      - ~/Projetos/DB/postgres_data:/var/lib/postgresql/data
+    environment:    
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: db-next-strap
+      POSTGRES_USER: postgres
+      PGDATA: /var/lib/postgresql/data
+    ports:
+      - 5432:5432
