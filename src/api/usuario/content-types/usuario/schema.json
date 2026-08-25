@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "usuarios",
+  "info": {
+    "singularName": "usuario",
+    "pluralName": "usuarios",
+    "displayName": "Usuario"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nome": {
+      "type": "string",
+      "required": true
+    },
+    "CPF": {
+      "type": "biginteger",
+      "private": true,
+      "required": true,
+      "unique": true
+    },
+    "Senha": {
+      "type": "password",
+      "private": true,
+      "required": true
+    }
+  }
+}

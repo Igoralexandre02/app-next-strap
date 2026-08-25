@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "agendamentos",
+  "info": {
+    "singularName": "agendamento",
+    "pluralName": "agendamentos",
+    "displayName": "Agendamento"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nome": {
+      "type": "string",
+      "required": true
+    },
+    "Data": {
+      "type": "date",
+      "required": true
+    },
+    "Horario": {
+      "type": "time",
+      "required": true,
+      "default": "00:00:00.000"
+    },
+    "Numero": {
+      "type": "string",
+      "required": true
+    },
+    "Status_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::status.status",
+      "required": true
+    }
+  }
+}
