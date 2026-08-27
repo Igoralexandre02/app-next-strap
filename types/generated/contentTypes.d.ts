@@ -671,42 +671,6 @@ export interface ApiStatusStatus extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiUsuarioUsuario extends Struct.CollectionTypeSchema {
-  collectionName: 'usuarios';
-  info: {
-    displayName: 'Usuario';
-    pluralName: 'usuarios';
-    singularName: 'usuario';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    CPF: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 11;
-        minLength: 11;
-      }>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::usuario.usuario'
-    > &
-      Schema.Attribute.Private;
-    Nome: Schema.Attribute.String & Schema.Attribute.Required;
-    publishedAt: Schema.Attribute.DateTime;
-    Senha: Schema.Attribute.Password & Schema.Attribute.Required;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1163,12 +1127,18 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    cpf: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 11;
+        minLength: 11;
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1225,7 +1195,6 @@ declare module '@strapi/strapi' {
       'api::category.category': ApiCategoryCategory;
       'api::global.global': ApiGlobalGlobal;
       'api::status.status': ApiStatusStatus;
-      'api::usuario.usuario': ApiUsuarioUsuario;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
