@@ -16,14 +16,15 @@
       "required": true
     },
     "CPF": {
-      "type": "biginteger",
-      "private": true,
+      "type": "string",
+      "minLength": 11,
+      "maxLength": 11,
       "required": true,
-      "unique": true
+      "unique": true,
+      "regex": "^[0-9]{11}$"
     },
     "Senha": {
       "type": "password",
-      "private": true,
       "required": true
     }
   }

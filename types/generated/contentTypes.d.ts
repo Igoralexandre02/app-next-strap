@@ -682,10 +682,13 @@ export interface ApiUsuarioUsuario extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    CPF: Schema.Attribute.BigInteger &
+    CPF: Schema.Attribute.String &
       Schema.Attribute.Required &
-      Schema.Attribute.Private &
-      Schema.Attribute.Unique;
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 11;
+        minLength: 11;
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -697,9 +700,7 @@ export interface ApiUsuarioUsuario extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     Nome: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    Senha: Schema.Attribute.Password &
-      Schema.Attribute.Required &
-      Schema.Attribute.Private;
+    Senha: Schema.Attribute.Password & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

@@ -8,6 +8,9 @@ module.exports = ({ env }) => ({
       sessions: {
         httpOnly: true,
       },
+      jwt: {
+        expiresIn: '1d',
+      },
     },
   },
 
