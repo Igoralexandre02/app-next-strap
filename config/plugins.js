@@ -9,7 +9,7 @@ module.exports = ({ env }) => ({
         httpOnly: true,
       },
       jwt: {
-        expiresIn: '1d',
+        expiresIn: '1h',
       },
     },
   },
