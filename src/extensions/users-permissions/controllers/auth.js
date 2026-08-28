@@ -39,7 +39,7 @@ export async function callback(ctx) {
     return ctx.badRequest('CPF ou senha inválidos');
   }
 
-  const jwt = strapi
+  const jwt = await strapi
     .plugin('users-permissions')
     .service('jwt')
     .issue({
