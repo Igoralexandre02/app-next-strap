@@ -5,11 +5,12 @@ module.exports = ({ env }) => ({
   'users-permissions': {
     config: {
       jwtManagement: 'refresh',
+
       sessions: {
+        accessTokenLifespan: 3600, // 1 hora
+        maxRefreshTokenLifespan: 2592000, // 30 dias
+        idleRefreshTokenLifespan: 604800, // 7 dias
         httpOnly: true,
-      },
-      jwt: {
-        expiresIn: '1h',
       },
     },
   },
