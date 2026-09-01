@@ -539,6 +539,44 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiNotificacaoNotificacao extends Struct.CollectionTypeSchema {
+  collectionName: 'notificacoes';
+  info: {
+    displayName: 'Notificacao';
+    pluralName: 'notificacoes';
+    singularName: 'notificacao';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    agendamento: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::agendamento.agendamento'
+    > &
+      Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    lida: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::notificacao.notificacao'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    tipo: Schema.Attribute.Enumeration<['CORTE_PROXIMO']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'CORTE_PROXIMO'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiStatusStatus extends Struct.CollectionTypeSchema {
   collectionName: 'statuses';
   info: {
@@ -1087,6 +1125,7 @@ declare module '@strapi/strapi' {
       'api::about.about': ApiAboutAbout;
       'api::agendamento.agendamento': ApiAgendamentoAgendamento;
       'api::global.global': ApiGlobalGlobal;
+      'api::notificacao.notificacao': ApiNotificacaoNotificacao;
       'api::status.status': ApiStatusStatus;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

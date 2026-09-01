@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notificacoes",
+  "info": {
+    "singularName": "notificacao",
+    "pluralName": "notificacoes",
+    "displayName": "Notificacao"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "tipo": {
+      "type": "enumeration",
+      "required": true,
+      "default": "CORTE_PROXIMO",
+      "enum": [
+        "CORTE_PROXIMO"
+      ]
+    },
+    "lida": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "agendamento": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::agendamento.agendamento",
+      "required": true
+    }
+  }
+}
