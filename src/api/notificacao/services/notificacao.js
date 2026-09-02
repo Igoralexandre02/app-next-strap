@@ -6,7 +6,7 @@
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-const { obterAgoraLocal, horarioEmMinutos, } = require('./helpers');
+const { obterHoraLocal, horarioEmMinutos, } = require('./helpers');
 
 const MINUTOS_ANTECEDENCIA = 30;
 
@@ -14,7 +14,7 @@ module.exports = createCoreService(
   'api::notificacao.notificacao',
   ({ strapi }) => ({
     async verificarCortesProximos() {
-      const agora = obterAgoraLocal();
+      const agora = obterHoraLocal();
 
       const agendamentos = await strapi
         .documents('api::agendamento.agendamento')
@@ -38,10 +38,6 @@ module.exports = createCoreService(
         if (diferencaMinutos <= 0) {
           continue;
         }
-
-        strapi.log.info(
-          `[LEMBRETE] ${agendamento.nome} → ${diferencaMinutos} minutos`,
-        );
 
         const estaProximo =
           diferencaMinutos > 0 &&
@@ -68,7 +64,7 @@ module.exports = createCoreService(
 
         if (notificacoesExistentes.length > 0) {
           strapi.log.info(
-            `[LEMBRETE] Notificação já existe para ${agendamento.nome}.`,
+            `Notificação já existe para ${agendamento.nome}.`,
           );
 
           continue;
@@ -85,9 +81,30 @@ module.exports = createCoreService(
           });
 
         strapi.log.info(
-          `[LEMBRETE] 🔔 Notificação criada para ${agendamento.nome} (${notificacao.documentId}).`,
+          `Notificação criada para ${agendamento.nome} (${notificacao.documentId}).`,
         );
       }
     },
+    async removerPorAgendamento(documentId) {
+      const notificacoes = await strapi.documents(
+        'api::notificacao.notificacao'
+      ).findMany({
+        filters: {
+          agendamento: {
+            documentId: {
+              $eq: documentId,
+            },
+          },
+        },
+      });
+
+      for (const notificacao of notificacoes) {
+        await strapi.documents(
+          'api::notificacao.notificacao'
+        ).delete({
+          documentId: notificacao.documentId,
+        });
+      }
+    }
   }),
 );

@@ -1,6 +1,6 @@
 'use strict';
 
-export function obterAgoraLocal() {
+export function obterHoraLocal() {
   const agora = new Date();
 
   const partes = new Intl.DateTimeFormat('en-CA', {
