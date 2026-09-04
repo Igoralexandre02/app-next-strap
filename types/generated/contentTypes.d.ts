@@ -480,7 +480,7 @@ export interface ApiAgendamentoAgendamento extends Struct.CollectionTypeSchema {
     singularName: 'agendamento';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
@@ -585,7 +585,7 @@ export interface ApiStatusStatus extends Struct.CollectionTypeSchema {
     singularName: 'status';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;

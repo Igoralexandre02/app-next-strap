@@ -5,9 +5,8 @@ const notificacaoService = require(
 module.exports = {
   verificarCortesProximos: {
     task: async ({ strapi }) => {
-      await strapi
-        .service('api::notificacao.notificacao')
-        .verificarCortesProximos();
+      await strapi.service('api::notificacao.notificacao').verificarCortesProximos();
+      await strapi.service('api::agendamento.agendamento').finalizarAgendamentos();
     },
 
     options: {
