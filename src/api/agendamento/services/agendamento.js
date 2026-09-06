@@ -93,8 +93,6 @@ module.exports = createCoreService(
                     },
                 });
 
-            console.log(`[AGENDAMENTOS]`, agendamentos);
-
             const agoraMs = dataHoraParaComparacao(
                 agora.data,
                 agora.hora,
@@ -116,18 +114,13 @@ module.exports = createCoreService(
 
                 if (agoraMs >= limiteMs) {
                     await strapi
-                        .documents('api::agendamento.agendamento')
-                        .update({
-                            documentId: agendamento.documentId,
-                            data: {
-                                status_id: statusFinalizado.documentId,
-                            },
-                        });
-
-                    console.log(
-                        `[AGENDAMENTO] ${agendamento.nome} ` +
-                        `foi finalizado automaticamente.`
-                    );
+                    .documents('api::agendamento.agendamento')
+                    .update({
+                        documentId: agendamento.documentId,
+                        data: {
+                            status_id: statusFinalizado.documentId,
+                        },
+                    });
                 }
             }
         },
