@@ -483,6 +483,7 @@ export interface ApiAgendamentoAgendamento extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    cliente_id: Schema.Attribute.Relation<'oneToOne', 'api::cliente.cliente'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -496,11 +497,38 @@ export interface ApiAgendamentoAgendamento extends Struct.CollectionTypeSchema {
       'api::agendamento.agendamento'
     > &
       Schema.Attribute.Private;
-    nome: Schema.Attribute.String & Schema.Attribute.Required;
-    numero: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     status_id: Schema.Attribute.Relation<'oneToOne', 'api::status.status'> &
       Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiClienteCliente extends Struct.CollectionTypeSchema {
+  collectionName: 'clientes';
+  info: {
+    displayName: 'Cliente';
+    pluralName: 'clientes';
+    singularName: 'cliente';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::cliente.cliente'
+    > &
+      Schema.Attribute.Private;
+    nome: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    telefone: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1124,6 +1152,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::about.about': ApiAboutAbout;
       'api::agendamento.agendamento': ApiAgendamentoAgendamento;
+      'api::cliente.cliente': ApiClienteCliente;
       'api::global.global': ApiGlobalGlobal;
       'api::notificacao.notificacao': ApiNotificacaoNotificacao;
       'api::status.status': ApiStatusStatus;
